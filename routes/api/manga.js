@@ -4,6 +4,8 @@ const auth = require('../../middleware/auth');
 const Manga = require('../../models/Manga');
 const Chapter = require('../../models/Chapter');
 const User = require('../../models/User');
+const { logger } = require('../../utils/logger');
+const mongoose = require('mongoose');
 
 // @route   GET api/manga
 // @desc    Получение списка манги с пагинацией и фильтрацией
@@ -50,7 +52,39 @@ router.get('/', async (req, res) => {
       totalItems: total
     });
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении списка манги: ${err.message}`);
+    res.status(500).send('Ошибка сервера');
+  }
+});
+
+// @route   GET api/manga/popular
+// @desc    Получение популярной манги
+// @access  Public
+router.get('/popular', async (req, res) => {
+  try {
+    const manga = await Manga.find()
+      .sort({ views: -1 })
+      .limit(10);
+    
+    res.json(manga);
+  } catch (err) {
+    logger.error(`Ошибка при получении популярной манги: ${err.message}`);
+    res.status(500).send('Ошибка сервера');
+  }
+});
+
+// @route   GET api/manga/latest
+// @desc    Получение последних обновлений манги
+// @access  Public
+router.get('/latest', async (req, res) => {
+  try {
+    const manga = await Manga.find()
+      .sort({ updatedAt: -1 })
+      .limit(10);
+    
+    res.json(manga);
+  } catch (err) {
+    logger.error(`Ошибка при получении последних обновлений манги: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -60,6 +94,11 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/:id', async (req, res) => {
   try {
+    // Проверка валидности ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ msg: 'Манга не найдена' });
+    }
+
     const manga = await Manga.findById(req.params.id);
     
     if (!manga) {
@@ -72,7 +111,7 @@ router.get('/:id', async (req, res) => {
 
     res.json(manga);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении манги по ID: ${err.message}`);
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Манга не найдена' });
     }
@@ -85,12 +124,17 @@ router.get('/:id', async (req, res) => {
 // @access  Public
 router.get('/:id/chapters', async (req, res) => {
   try {
+    // Проверка валидности ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ msg: 'Манга не найдена' });
+    }
+
     const chapters = await Chapter.find({ manga: req.params.id })
       .sort({ number: 1 });
     
     res.json(chapters);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении глав манги: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -139,7 +183,7 @@ router.post('/', auth, async (req, res) => {
     const manga = await newManga.save();
     res.json(manga);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при создании манги: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -154,6 +198,11 @@ router.put('/:id', auth, async (req, res) => {
     // Проверка прав доступа
     if (user.role !== 'admin') {
       return res.status(403).json({ msg: 'Доступ запрещен' });
+    }
+
+    // Проверка валидности ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ msg: 'Манга не найдена' });
     }
 
     const manga = await Manga.findById(req.params.id);
@@ -192,7 +241,7 @@ router.put('/:id', auth, async (req, res) => {
     await manga.save();
     res.json(manga);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при обновлении манги: ${err.message}`);
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Манга не найдена' });
     }
@@ -212,6 +261,11 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(403).json({ msg: 'Доступ запрещен' });
     }
 
+    // Проверка валидности ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ msg: 'Манга не найдена' });
+    }
+
     const manga = await Manga.findById(req.params.id);
     
     if (!manga) {
@@ -222,46 +276,14 @@ router.delete('/:id', auth, async (req, res) => {
     await Chapter.deleteMany({ manga: req.params.id });
     
     // Удаление манги
-    await manga.remove();
+    await manga.deleteOne();
     
     res.json({ msg: 'Манга удалена' });
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при удалении манги: ${err.message}`);
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Манга не найдена' });
     }
-    res.status(500).send('Ошибка сервера');
-  }
-});
-
-// @route   GET api/manga/popular
-// @desc    Получение популярной манги
-// @access  Public
-router.get('/popular', async (req, res) => {
-  try {
-    const manga = await Manga.find()
-      .sort({ views: -1 })
-      .limit(10);
-    
-    res.json(manga);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Ошибка сервера');
-  }
-});
-
-// @route   GET api/manga/latest
-// @desc    Получение последних обновлений
-// @access  Public
-router.get('/latest', async (req, res) => {
-  try {
-    const manga = await Manga.find()
-      .sort({ updatedAt: -1 })
-      .limit(10);
-    
-    res.json(manga);
-  } catch (err) {
-    console.error(err.message);
     res.status(500).send('Ошибка сервера');
   }
 });

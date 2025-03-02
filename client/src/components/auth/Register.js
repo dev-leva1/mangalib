@@ -105,6 +105,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    
+    if (!name || !email || !password) {
+      setAlert('Пожалуйста, заполните все обязательные поля', 'danger');
+      return;
+    }
+    
     if (password !== password2) {
       setAlert('Пароли не совпадают', 'danger');
     } else {

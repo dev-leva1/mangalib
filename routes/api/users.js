@@ -11,6 +11,13 @@ router.post('/', async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+    // Проверка наличия всех необходимых полей
+    if (!username || !email || !password) {
+      return res.status(400).json({ 
+        msg: 'Пожалуйста, заполните все обязательные поля' 
+      });
+    }
+
     // Проверка существования пользователя
     let user = await User.findOne({ email });
     if (user) {
@@ -37,6 +44,13 @@ router.post('/', async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.error(err.message);
+    
+    // Обработка ошибок валидации mongoose
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map(val => val.message);
+      return res.status(400).json({ msg: messages[0] });
+    }
+    
     res.status(500).send('Ошибка сервера');
   }
 });

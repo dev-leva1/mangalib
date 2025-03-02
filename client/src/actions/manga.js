@@ -2,19 +2,47 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import {
   GET_MANGA,
-  GET_MANGA_BY_ID,
+  GET_MANGA_DETAIL,
   MANGA_ERROR,
   GET_LATEST_MANGA,
   GET_POPULAR_MANGA,
   ADD_MANGA,
   UPDATE_MANGA,
-  DELETE_MANGA
+  DELETE_MANGA,
+  CLEAR_MANGA,
+  SET_LOADING
 } from './types';
 
+// Установить состояние загрузки
+export const setLoading = () => dispatch => {
+  dispatch({
+    type: SET_LOADING
+  });
+};
+
+// Очистить текущую мангу
+export const clearManga = () => dispatch => {
+  dispatch({
+    type: CLEAR_MANGA
+  });
+};
+
 // Получить все манги
-export const getAllManga = () => async dispatch => {
+export const getAllManga = (page = 1, limit = 20, filters = {}) => async dispatch => {
   try {
-    const res = await axios.get('/api/manga');
+    dispatch(setLoading());
+    
+    // Формирование параметров запроса
+    let queryParams = `?page=${page}&limit=${limit}`;
+    
+    if (filters.genre) queryParams += `&genre=${filters.genre}`;
+    if (filters.status) queryParams += `&status=${filters.status}`;
+    if (filters.search) queryParams += `&search=${filters.search}`;
+    if (filters.year) queryParams += `&year=${filters.year}`;
+    if (filters.sort) queryParams += `&sort=${filters.sort}`;
+    if (filters.order) queryParams += `&order=${filters.order}`;
+    
+    const res = await axios.get(`/api/manga${queryParams}`);
 
     dispatch({
       type: GET_MANGA,
@@ -23,7 +51,10 @@ export const getAllManga = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -31,16 +62,21 @@ export const getAllManga = () => async dispatch => {
 // Получить мангу по ID
 export const getMangaById = id => async dispatch => {
   try {
+    dispatch(setLoading());
+    
     const res = await axios.get(`/api/manga/${id}`);
 
     dispatch({
-      type: GET_MANGA_BY_ID,
+      type: GET_MANGA_DETAIL,
       payload: res.data
     });
   } catch (err) {
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -48,6 +84,8 @@ export const getMangaById = id => async dispatch => {
 // Получить последние добавленные манги
 export const getLatestManga = () => async dispatch => {
   try {
+    dispatch(setLoading());
+    
     const res = await axios.get('/api/manga/latest');
 
     dispatch({
@@ -57,7 +95,10 @@ export const getLatestManga = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -65,6 +106,8 @@ export const getLatestManga = () => async dispatch => {
 // Получить популярные манги
 export const getPopularManga = () => async dispatch => {
   try {
+    dispatch(setLoading());
+    
     const res = await axios.get('/api/manga/popular');
 
     dispatch({
@@ -74,7 +117,10 @@ export const getPopularManga = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -97,7 +143,7 @@ export const addManga = formData => async dispatch => {
 
     dispatch(setAlert('Манга успешно добавлена', 'success'));
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response?.data?.errors;
 
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
@@ -105,7 +151,10 @@ export const addManga = formData => async dispatch => {
 
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -128,7 +177,7 @@ export const updateManga = (id, formData) => async dispatch => {
 
     dispatch(setAlert('Манга успешно обновлена', 'success'));
   } catch (err) {
-    const errors = err.response.data.errors;
+    const errors = err.response?.data?.errors;
 
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
@@ -136,7 +185,10 @@ export const updateManga = (id, formData) => async dispatch => {
 
     dispatch({
       type: MANGA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { 
+        msg: err.response?.statusText || 'Ошибка сервера', 
+        status: err.response?.status || 500 
+      }
     });
   }
 };
@@ -156,7 +208,10 @@ export const deleteManga = id => async dispatch => {
     } catch (err) {
       dispatch({
         type: MANGA_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { 
+          msg: err.response?.statusText || 'Ошибка сервера', 
+          status: err.response?.status || 500 
+        }
       });
     }
   }
