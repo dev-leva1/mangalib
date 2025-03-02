@@ -18,10 +18,13 @@
 - Node.js с Express
 - MongoDB для хранения данных
 - JWT для аутентификации
+- Express Rate Limit для защиты от DDoS-атак
+- Winston для логирования
 
 ### Frontend
 - React для основной части сайта
-- Vue.js для административной панели
+- Redux для управления состоянием
+- Styled Components для стилизации
 - Современный JavaScript (ES6+)
 
 ## Установка и запуск
@@ -34,7 +37,7 @@
 
 1. Клонировать репозиторий:
 ```
-git clone https://github.com/yourusername/mangahub.git
+git clone https://github.com/dev-leva1/mangalib.git
 cd mangahub
 ```
 
@@ -46,7 +49,7 @@ npm install
 3. Создать файл .env в корневой директории и добавить следующие переменные:
 ```
 NODE_ENV=development
-PORT=5000
+PORT=3001
 MONGO_URI=mongodb://localhost:27017/mangahub
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRE=30d
@@ -54,7 +57,9 @@ JWT_EXPIRE=30d
 
 4. Установить зависимости клиента:
 ```
-npm run install-client
+cd client
+npm install
+cd ..
 ```
 
 ### Запуск
@@ -76,7 +81,9 @@ npm run client
 
 #### Продакшн:
 ```
+cd client
 npm run build
+cd ..
 npm start
 ```
 
@@ -85,11 +92,16 @@ npm start
 ```
 mangahub/
   ├── client/              # React клиент
+  │   ├── src/             # Исходный код клиента
+  │   │   ├── actions/     # Redux действия
+  │   │   ├── components/  # React компоненты
+  │   │   ├── reducers/    # Redux редьюсеры
+  │   │   └── utils/       # Утилиты
   ├── models/              # Mongoose модели
   ├── routes/              # Express маршруты
   │   └── api/             # API маршруты
   ├── middleware/          # Middleware функции
-  ├── config/              # Конфигурационные файлы
+  ├── utils/               # Утилиты сервера
   ├── server.js            # Точка входа сервера
   └── package.json         # Зависимости и скрипты
 ```
@@ -137,6 +149,30 @@ mangahub/
 - DELETE /api/comments/:id - Удаление комментария
 - POST /api/comments/:id/like - Лайк комментария
 - POST /api/comments/:id/dislike - Дизлайк комментария
+
+## Последние обновления
+
+### Версия 1.1.0 (Март 2025)
+- Исправлена проблема с регистрацией пользователей
+- Улучшена обработка ошибок валидации
+- Добавлена настройка trust proxy для корректной работы с X-Forwarded-For
+- Улучшена система логирования
+- Обновлены зависимости
+
+## Известные проблемы и их решения
+
+### Проблема с регистрацией
+Если вы столкнулись с проблемой при регистрации, убедитесь, что:
+1. Все поля формы заполнены
+2. Пароли совпадают
+3. Email не используется другим пользователем
+4. Имя пользователя не занято
+
+### Проблема с express-rate-limit
+Если вы видите ошибку, связанную с X-Forwarded-For и express-rate-limit, убедитесь, что в server.js установлен параметр trust proxy:
+```javascript
+app.set('trust proxy', 1);
+```
 
 ## Лицензия
 
