@@ -96,3 +96,172 @@
 2025-03-02 15:20:21 info: GET /default-avatar.jpg 404 - 1ms
 2025-03-02 15:20:31 info: GET /api/manga/popular 200 - 5ms
 2025-03-02 15:20:31 info: GET /api/manga/latest 200 - 4ms
+2025-03-02 21:53:16 info: Используется порт из переменной окружения: 3001
+2025-03-02 21:53:16 info: Сервер запущен на порту 3001
+2025-03-02 21:53:16 info: MongoDB подключена успешно
+2025-03-02 21:53:29 info: GET /api/manga/popular 200 - 17ms
+2025-03-02 21:53:29 info: GET /api/manga/latest 200 - 11ms
+2025-03-02 21:53:29 warn: Попытка доступа без токена: /api/auth
+2025-03-02 21:53:29 info: GET /api/auth 401 - 2ms
+2025-03-02 21:53:29 info: GET /logo192.png 404 - 1ms
+2025-03-02 21:53:38 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:53:38 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:53:45 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:53:45 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:54:02 info: Используется порт из переменной окружения: 3001
+2025-03-02 21:54:02 info: Сервер запущен на порту 3001
+2025-03-02 21:54:02 info: MongoDB подключена успешно
+2025-03-02 21:54:14 warn: Попытка доступа без токена: /api/auth
+2025-03-02 21:54:14 info: GET /api/auth 401 - 5ms
+2025-03-02 21:54:14 info: GET /api/manga/popular 304 - 19ms
+2025-03-02 21:54:14 info: GET /api/manga/latest 304 - 13ms
+2025-03-02 21:54:14 info: GET /logo192.png 404 - 1ms
+2025-03-02 21:54:25 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:54:25 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:54:31 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:54:31 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:56:54 info: Используется порт из переменной окружения: 3001
+2025-03-02 21:56:54 info: Сервер запущен на порту 3001
+2025-03-02 21:56:54 info: MongoDB подключена успешно
+2025-03-02 21:57:56 warn: Попытка доступа без токена: /api/auth
+2025-03-02 21:57:56 info: GET /api/auth 401 - 6ms
+2025-03-02 21:57:56 info: GET /api/manga/popular 304 - 21ms
+2025-03-02 21:57:56 info: GET /api/manga/latest 304 - 15ms
+2025-03-02 21:57:57 info: GET /logo192.png 404 - 2ms
+2025-03-02 21:58:05 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:58:05 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:07 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:58:07 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:07 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 21:58:07 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:23 warn: Попытка доступа без токена: /api/auth
+2025-03-02 21:58:23 info: GET /api/auth 401 - 2ms
+2025-03-02 21:58:38 warn: Попытка доступа без токена: /api/auth
+2025-03-02 21:58:38 info: GET /api/auth 401 - 2ms
+2025-03-02 22:00:00 warn: Попытка доступа без токена: /api/auth
+2025-03-02 22:00:00 info: GET /api/auth 401 - 2ms
+2025-03-02 22:00:20 warn: Попытка доступа без токена: /api/auth
+2025-03-02 22:00:20 info: GET /api/auth 401 - 2ms
+2025-03-02 22:00:21 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 22:00:21 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 22:01:33 warn: Попытка доступа без токена: /api/auth
+2025-03-02 22:01:33 info: GET /api/auth 401 - 2ms
+2025-03-02 22:02:44 warn: Попытка доступа без токена: /api/auth
+2025-03-02 22:02:44 info: GET /api/auth 401 - 26ms
+2025-03-02 22:03:44 info: Используется порт из переменной окружения: 3001
+2025-03-02 22:03:44 info: Сервер запущен на порту 3001
+2025-03-02 22:03:44 info: MongoDB подключена успешно
+2025-03-02 22:04:01 info: GET /api/manga/popular 304 - 16ms
+2025-03-02 22:04:01 info: GET /api/manga/latest 304 - 13ms
+2025-03-02 22:04:01 info: GET /logo192.png 404 - 2ms
+2025-03-02 22:04:10 info: GET /main.49c256f2085dd2f8e3c6.hot-update.json 404 - 1ms
+2025-03-02 22:04:11 info: GET /logo192.png 404 - 0ms
+2025-03-02 22:04:12 info: GET / 404 - 1ms
+2025-03-02 22:04:14 info: GET /logo192.png 404 - 1ms
+2025-03-02 22:04:32 warn: CORS блокировка для источника: http://localhost:3001/
+2025-03-02 22:04:32 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 22:06:58 info: POST /api/auth 200 - 171ms
+2025-03-02 22:06:58 info: GET /api/auth 200 - 9ms
+2025-03-02 22:06:58 info: GET /api/profile/me 404 - 2ms
+2025-03-02 22:06:58 info: GET /default-avatar.jpg 404 - 1ms
+2025-03-02 22:07:30 info: GET /api/manga/popular 200 - 3ms
+2025-03-02 22:07:30 info: GET /api/manga/latest 200 - 3ms

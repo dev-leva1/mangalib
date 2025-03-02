@@ -53,6 +53,7 @@ const Input = styled.input`
 `;
 
 const SubmitButton = styled.button`
+  width: 100%;
   padding: 0.8rem;
   background-color: ${props => props.theme.accent};
   color: white;
@@ -61,15 +62,33 @@ const SubmitButton = styled.button`
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
   
   &:hover {
     background-color: ${props => props.theme.accentDark};
   }
   
   &:disabled {
-    background-color: ${props => props.theme.accent + '77'};
+    background-color: ${props => props.theme.accentLight};
     cursor: not-allowed;
+    opacity: 0.7;
+  }
+`;
+
+const LoadingSpinner = styled.div`
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -88,11 +107,12 @@ const RegisterLink = styled.p`
   }
 `;
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, setAlert }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const { email, password } = formData;
 
@@ -100,9 +120,24 @@ const Login = ({ login, isAuthenticated }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    login(email, password);
+    
+    if (!email || !password) {
+      setAlert('Пожалуйста, заполните все поля', 'danger');
+      return;
+    }
+    
+    setIsLoading(true);
+    console.log('Попытка входа с email:', email);
+    
+    try {
+      await login(email, password);
+    } catch (error) {
+      console.error('Ошибка при входе:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Редирект, если пользователь авторизован
@@ -137,7 +172,10 @@ const Login = ({ login, isAuthenticated }) => {
             minLength="6"
           />
         </FormGroup>
-        <SubmitButton type="submit">Войти</SubmitButton>
+        <SubmitButton type="submit" disabled={isLoading}>
+          {isLoading ? 'Вход...' : 'Войти'} 
+          {isLoading && <LoadingSpinner />}
+        </SubmitButton>
       </Form>
       <RegisterLink>
         Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>

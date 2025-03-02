@@ -54,6 +54,7 @@ const Input = styled.input`
 `;
 
 const SubmitButton = styled.button`
+  width: 100%;
   padding: 0.8rem;
   background-color: ${props => props.theme.accent};
   color: white;
@@ -62,15 +63,33 @@ const SubmitButton = styled.button`
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
   
   &:hover {
     background-color: ${props => props.theme.accentDark};
   }
   
   &:disabled {
-    background-color: ${props => props.theme.accent + '77'};
+    background-color: ${props => props.theme.accentLight};
     cursor: not-allowed;
+    opacity: 0.7;
+  }
+`;
+
+const LoadingSpinner = styled.div`
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -96,6 +115,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     password2: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const { name, email, password, password2 } = formData;
 
@@ -103,7 +123,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
     
     if (!name || !email || !password) {
@@ -113,8 +133,18 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     
     if (password !== password2) {
       setAlert('Пароли не совпадают', 'danger');
-    } else {
-      register({ name, email, password });
+      return;
+    }
+    
+    setIsLoading(true);
+    console.log('Попытка регистрации с email:', email);
+    
+    try {
+      await register({ name, email, password });
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -173,7 +203,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             minLength="6"
           />
         </FormGroup>
-        <SubmitButton type="submit">Зарегистрироваться</SubmitButton>
+        <SubmitButton type="submit" disabled={isLoading}>
+          {isLoading ? 'Регистрация...' : 'Зарегистрироваться'} 
+          {isLoading && <LoadingSpinner />}
+        </SubmitButton>
       </Form>
       <LoginLink>
         Уже есть аккаунт? <Link to="/login">Войти</Link>

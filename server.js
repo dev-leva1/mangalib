@@ -17,12 +17,25 @@ app.set('trust proxy', 1);
 
 // Middleware
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.CLIENT_URL || 'https://mangahub-app.herokuapp.com' 
-    : 'http://localhost:3001',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
+  origin: function(origin, callback) {
+    // Разрешенные источники
+    const allowedOrigins = process.env.NODE_ENV === 'production' 
+      ? [process.env.CLIENT_URL || 'https://mangahub-app.herokuapp.com']
+      : ['http://localhost:3000', 'http://localhost:3001', undefined];
+    
+    // Разрешаем запросы без origin (например, мобильные приложения или Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      logger.warn(`CORS блокировка для источника: ${origin}`);
+      callback(new Error('Не разрешено CORS политикой'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token', 'Access-Control-Allow-Origin'],
+  exposedHeaders: ['x-auth-token', 'x-total-count'],
   credentials: true,
+  maxAge: 86400, // Кэширование preflight запросов на 24 часа
   optionsSuccessStatus: 200
 };
 

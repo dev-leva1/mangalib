@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -56,6 +57,20 @@ const UserSchema = new mongoose.Schema({
       default: Date.now
     }
   }],
+  refreshTokens: [{
+    token: {
+      type: String,
+      required: true
+    },
+    expires: {
+      type: Date,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now
@@ -82,8 +97,55 @@ UserSchema.methods.getSignedJwtToken = function() {
   return jwt.sign(
     { id: this._id },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRE }
+    { expiresIn: process.env.JWT_EXPIRE || '1h' }
   );
+};
+
+// Метод для генерации refresh токена
+UserSchema.methods.generateRefreshToken = function() {
+  // Создаем случайный токен
+  const refreshToken = crypto.randomBytes(40).toString('hex');
+  
+  // Устанавливаем срок действия (30 дней)
+  const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  
+  // Добавляем токен в массив refreshTokens
+  this.refreshTokens.push({
+    token: refreshToken,
+    expires
+  });
+  
+  // Ограничиваем количество активных refresh токенов (максимум 5)
+  if (this.refreshTokens.length > 5) {
+    this.refreshTokens = this.refreshTokens.slice(-5);
+  }
+  
+  return {
+    token: refreshToken,
+    expires
+  };
+};
+
+// Метод для проверки валидности refresh токена
+UserSchema.methods.isValidRefreshToken = function(token) {
+  const tokenDoc = this.refreshTokens.find(t => t.token === token);
+  
+  if (!tokenDoc) {
+    return false;
+  }
+  
+  // Проверяем, не истек ли срок действия
+  return new Date() < new Date(tokenDoc.expires);
+};
+
+// Метод для удаления refresh токена
+UserSchema.methods.removeRefreshToken = function(token) {
+  this.refreshTokens = this.refreshTokens.filter(t => t.token !== token);
+};
+
+// Метод для удаления всех refresh токенов (при смене пароля)
+UserSchema.methods.removeAllRefreshTokens = function() {
+  this.refreshTokens = [];
 };
 
 module.exports = mongoose.model('User', UserSchema); 

@@ -4,10 +4,13 @@ import { ThemeProvider } from 'styled-components';
 import { connect } from 'react-redux';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+// Импортируем перехватчик axios
+import './utils/axiosConfig';
 
 // Компоненты
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import Alert from './components/layout/Alert';
 import Home from './components/pages/Home';
 import Catalog from './components/pages/Catalog';
 import MangaDetail from './components/manga/MangaDetail';
@@ -38,6 +41,7 @@ const App = ({ loadUser }) => {
       <Router>
         <div className="app">
           <Navbar />
+          <Alert />
           <main className="container">
             <Routes>
               <Route path="/" element={<Home />} />

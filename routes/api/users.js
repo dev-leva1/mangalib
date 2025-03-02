@@ -3,21 +3,20 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const { logger } = require('../../utils/logger');
+
+// Middleware
+const auth = require('../../middleware/auth');
+const validator = require('../../middleware/validator');
+const { userSchemas, authSchemas } = require('../../utils/validationSchemas');
 
 // @route   POST api/users
 // @desc    Регистрация пользователя
 // @access  Public
-router.post('/', async (req, res) => {
+router.post('/', validator(authSchemas.register), async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    // Проверка наличия всех необходимых полей
-    if (!username || !email || !password) {
-      return res.status(400).json({ 
-        msg: 'Пожалуйста, заполните все обязательные поля' 
-      });
-    }
-
     // Проверка существования пользователя
     let user = await User.findOne({ email });
     if (user) {
@@ -40,10 +39,19 @@ router.post('/', async (req, res) => {
 
     // Создание JWT токена
     const token = user.getSignedJwtToken();
+    
+    // Создание refresh токена
+    const refreshToken = user.generateRefreshToken();
+    await user.save();
 
-    res.json({ token });
+    // Отправка токенов
+    res.json({
+      token,
+      refreshToken: refreshToken.token,
+      refreshTokenExpires: refreshToken.expires
+    });
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при регистрации: ${err.message}`);
     
     // Обработка ошибок валидации mongoose
     if (err.name === 'ValidationError') {
@@ -58,16 +66,16 @@ router.post('/', async (req, res) => {
 // @route   GET api/users/me
 // @desc    Получение данных текущего пользователя
 // @access  Private
-router.get('/me', async (req, res) => {
+router.get('/me', auth, async (req, res) => {
   try {
     // Получение пользователя по ID из токена
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password -refreshTokens');
     if (!user) {
       return res.status(404).json({ msg: 'Пользователь не найден' });
     }
     res.json(user);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении данных пользователя: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -75,7 +83,7 @@ router.get('/me', async (req, res) => {
 // @route   PUT api/users/me
 // @desc    Обновление данных пользователя
 // @access  Private
-router.put('/me', async (req, res) => {
+router.put('/me', auth, validator(userSchemas.updateProfile), async (req, res) => {
   const { username, email, avatar } = req.body;
   
   // Построение объекта обновления
@@ -112,11 +120,11 @@ router.put('/me', async (req, res) => {
       req.user.id,
       { $set: userFields },
       { new: true }
-    ).select('-password');
+    ).select('-password -refreshTokens');
 
     res.json(user);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при обновлении данных пользователя: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -124,7 +132,7 @@ router.put('/me', async (req, res) => {
 // @route   PUT api/users/password
 // @desc    Изменение пароля пользователя
 // @access  Private
-router.put('/password', async (req, res) => {
+router.put('/password', auth, validator(userSchemas.updatePassword), async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
   try {
@@ -143,11 +151,15 @@ router.put('/password', async (req, res) => {
 
     // Установка нового пароля
     user.password = newPassword;
+    
+    // Удаление всех refresh токенов при смене пароля
+    user.removeAllRefreshTokens();
+    
     await user.save();
 
     res.json({ msg: 'Пароль успешно изменен' });
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при изменении пароля: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -155,7 +167,7 @@ router.put('/password', async (req, res) => {
 // @route   POST api/users/favorites/:mangaId
 // @desc    Добавление манги в избранное
 // @access  Private
-router.post('/favorites/:mangaId', async (req, res) => {
+router.post('/favorites/:mangaId', auth, validator(userSchemas.mangaId, 'params'), async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     
@@ -174,7 +186,7 @@ router.post('/favorites/:mangaId', async (req, res) => {
 
     res.json(user.favorites);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при добавлении манги в избранное: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -182,7 +194,7 @@ router.post('/favorites/:mangaId', async (req, res) => {
 // @route   DELETE api/users/favorites/:mangaId
 // @desc    Удаление манги из избранного
 // @access  Private
-router.delete('/favorites/:mangaId', async (req, res) => {
+router.delete('/favorites/:mangaId', auth, validator(userSchemas.mangaId, 'params'), async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     
@@ -199,7 +211,7 @@ router.delete('/favorites/:mangaId', async (req, res) => {
 
     res.json(user.favorites);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при удалении манги из избранного: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -207,7 +219,7 @@ router.delete('/favorites/:mangaId', async (req, res) => {
 // @route   GET api/users/favorites
 // @desc    Получение списка избранных манг пользователя
 // @access  Private
-router.get('/favorites', async (req, res) => {
+router.get('/favorites', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate('favorites');
     
@@ -217,7 +229,7 @@ router.get('/favorites', async (req, res) => {
 
     res.json(user.favorites);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении списка избранных манг: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });
@@ -225,7 +237,7 @@ router.get('/favorites', async (req, res) => {
 // @route   GET api/users/history
 // @desc    Получение истории чтения пользователя
 // @access  Private
-router.get('/history', async (req, res) => {
+router.get('/history', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
       .populate({
@@ -248,7 +260,7 @@ router.get('/history', async (req, res) => {
 
     res.json(sortedHistory);
   } catch (err) {
-    console.error(err.message);
+    logger.error(`Ошибка при получении истории чтения: ${err.message}`);
     res.status(500).send('Ошибка сервера');
   }
 });

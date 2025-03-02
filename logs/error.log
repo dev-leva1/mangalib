@@ -1,1 +1,109 @@
 2025-03-02 14:23:42 error: Ошибка подключения к MongoDB: querySrv ENOTFOUND _mongodb._tcp.cluster0.mongodb.net
+2025-03-02 21:53:38 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:53:45 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:54:25 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:54:31 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:05 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:07 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 21:58:07 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 22:00:21 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
+2025-03-02 22:04:32 error: Не разрешено CORS политикой
+Error: Не разрешено CORS политикой
+    at origin (C:\Users\fills\Desktop\code\mangalib\server.js:31:16)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:219:13
+    at optionsCallback (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:199:9)
+    at corsMiddleware (C:\Users\fills\Desktop\code\mangalib\node_modules\cors\lib\index.js:204:7)
+    at Layer.handle [as handle_request] (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\router\index.js:280:10)
+    at expressInit (C:\Users\fills\Desktop\code\mangalib\node_modules\express\lib\middleware\init.js:40:5)
